@@ -15,9 +15,30 @@ npm run dev
 
 # build electron application for production
 npm run build
-
-
 ```
+
+### Platforms
+
+At the moment the app has been built and tested on windows. In the near future I'll build and test the OSX distributable 
+as well. In the meantime, you're free to build your very own binary for your OS of choice. 
+
+### Features
+
+* Create new timesheet entry
+* Create new timesheet entry by and older entry (Continue)
+* Modify description, project and activity during recording
+* Delete timesheet entry
+* Browse through existing entries
+* Change language (currently available: English & Hungarian)
+
+### Features to come
+
+* Edit timesheet entries
+* List filtering, ordering
+* A better presentation of timesheet entries
+* Create customers, projects & activities
+* Statistics about working hours & revenues
+* Auto-update
 
 ---
 
