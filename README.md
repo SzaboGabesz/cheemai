@@ -1,6 +1,8 @@
-# cheemai
+# Cheemai
 
 > Native client for the Kimai platform
+
+![Cheemai preview](src/renderer/assets/Preview.png "Cheemai: a native Kimai client")
 
 #### Build Setup
 
