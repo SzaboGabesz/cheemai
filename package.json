@@ -3,7 +3,7 @@
   "version": "0.0.4",
   "author": "Gabor Szabo <szabo.gabor@szabogabor.net>",
   "description": "Native client for the Kimai platform",
-  "license": null,
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
