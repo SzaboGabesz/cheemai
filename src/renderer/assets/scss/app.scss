@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import 'notification';
+
+@keyframes lds-ellipsis1 {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+@keyframes lds-ellipsis3 {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0);
+	}
+}
+@keyframes lds-ellipsis2 {
+	0% {
+		transform: translate(0, 0);
+	}
+	100% {
+		transform: translate(24px, 0);
+	}
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-user-select: none;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	color: #fff;
+	background: radial-gradient(circle at center, rgba(96,110,134,1) 0%, rgba(59,67,78,1) 90%);
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+}
+
+#app {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+
+	header {
+		-webkit-app-region: drag;
+		display: flex;
+		align-items: center;
+		flex: 0 0 50px;
+		background-color: rgba(0,0,0,.5);
+		padding: 0 10px;
+		cursor: default;
+		box-shadow: 1px 1px 30px rgba(0, 0, 0, 0.5);
+		font-size: 14px;
+
+		span {
+			flex: 0 1 auto;
+		}
+
+		.kimai-version {
+			font-size: 10px;
+			margin-left: 5px;
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		.actions {
+			display: flex;
+			flex: 1;
+			justify-content: flex-end;
+			min-width: 90px;
+
+			> a {
+				display: block;
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+				-webkit-app-region: no-drag;
+				cursor: pointer;
+				width: 20px;
+				height: 20px;
+				margin-left: 10px;
+			}
+
+			.minimize {
+				background-image: url(~@/assets/icons/minimize.svg);
+			}
+
+			.maximize {
+				background-image: url(~@/assets/icons/maximize.svg);
+			}
+
+			.close {
+				background-image: url(~@/assets/icons/close.svg);
+			}
+		}
+	}
+
+	main {
+		display: flex;
+		flex-direction: column;
+		flex: 1 0 auto;
+	}
+
+	.xhr-loader {
+		position: fixed;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		top: 50px;
+		left: 0;
+		width: 100%;
+		height: calc(100vh - 50px);
+		background-color: rgba(0, 0, 0, 0.5);
+
+		.lds-ellipsis {
+			display: inline-block;
+			position: relative;
+			width: 80px;
+			height: 80px;
+
+			div {
+				position: absolute;
+				top: 33px;
+				width: 13px;
+				height: 13px;
+				border-radius: 50%;
+				background: #fff;
+				animation-timing-function: cubic-bezier(0, 1, 1, 0);
+			}
+
+			div:nth-child(1) {
+				left: 8px;
+				animation: lds-ellipsis1 0.6s infinite;
+			}
+
+			div:nth-child(2) {
+				left: 8px;
+				animation: lds-ellipsis2 0.6s infinite;
+			}
+
+			div:nth-child(3) {
+				left: 32px;
+				animation: lds-ellipsis2 0.6s infinite;
+			}
+
+			div:nth-child(4) {
+				left: 56px;
+				animation: lds-ellipsis3 0.6s infinite;
+			}
+		}
+	}
+
+	.xhr-loader.visible {
+		display: flex;
+	}
+}

@@ -1,7 +1,4 @@
-'use strict'
-
-import { app, BrowserWindow } from 'electron'
-require('electron-reload')(__dirname);
+import { app, ipcMain, BrowserWindow } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -17,23 +14,26 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
-  /**
-   * Initial window options
-   */
-  mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
-    width: 1000
-  })
+	/**
+	* Initial window options
+	*/
+	mainWindow = new BrowserWindow({
+		height: 200,
+		minHeight: 600,
+		useContentSize: true,
+		frame: false,
+		width: 1000,
+		minWidth: 800
+	});
 
-  mainWindow.loadURL(winURL)
+	mainWindow.loadURL(winURL);
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
+	mainWindow.on('closed', () => {
+	mainWindow = null
+	})
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -45,7 +45,11 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
   }
-})
+});
+
+ipcMain.on('get-locale', (e) => {
+	e.sender.send('on-get-locale', app.getLocale());
+});
 
 /**
  * Auto Updater
