@@ -16,7 +16,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="timesheet in timesheets" @click="editTimesheet($event, timesheet)" :class="{'same-project': projectId === timesheet.project}">
+					<tr v-for="timesheet in timesheets" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet($event, timesheet)" :class="{'same-project': projectId === timesheet.project}">
 						<td class="project">{{ getProjectNameById(timesheet.project) }}</td>
 						<td class="customer">{{ getCustomerNameByProjectId(timesheet.project) }}</td>
 						<td class="activity">{{ getActivityNameById(timesheet.activity) }}</td>
