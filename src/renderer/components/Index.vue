@@ -27,12 +27,11 @@
 						<td class="rate">{{ getRateWithCurrency(timesheet) }}</td>
 						<td class="actions">
 							<button href="#" @click="continueTimesheet(timesheet)" class="btn-with-icon continue">
-								<img src="~@/assets/icons/continue-timesheet.svg">
-								{{ $trans('Continue') }}
+								<img src="~@/assets/icons/continue-timesheet.svg" :title="$trans('Continue')">
 							</button>
+							<div class="separator"></div>
 							<button href="#" @click="deleteTimesheet(timesheet.id)" class="btn-with-icon delete">
-								<img src="~@/assets/icons/delete-timesheet.svg">
-								{{ $trans('Delete') }}
+								<img src="~@/assets/icons/delete-timesheet.svg" :title="$trans('Delete')">
 							</button>
 						</td>
 					</tr>
