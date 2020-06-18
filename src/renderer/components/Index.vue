@@ -21,8 +21,8 @@
 						<td class="customer">{{ getCustomerNameByProjectId(timesheet.project) }}</td>
 						<td class="activity">{{ getActivityNameById(timesheet.activity) }}</td>
 						<td class="description">{{ timesheet.description }}</td>
-						<td class="begin">{{ timesheet.begin|date }}</td>
-						<td class="end">{{ timesheet.end|date }}</td>
+						<td class="begin">{{ timesheet.begin|date(language) }}</td>
+						<td class="end">{{ timesheet.end|date(language) }}</td>
 						<td class="duration">{{ timesheet.duration|duration }}</td>
 						<td class="rate">{{ getRateWithCurrency(timesheet) }}</td>
 						<td class="actions">
@@ -110,12 +110,22 @@
 			}
 		},
 		filters: {
-			date(value) {
+			date(value, locale) {
 				if(value === null) {
 					return '';
 				}
 
-				return moment(value).format('YYYY.MM.DD HH:mm:ss');
+				const date = moment(value);
+				const options = {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+					hour: 'numeric',
+					minute: 'numeric',
+					second: 'numeric',
+				};
+
+				return new Intl.DateTimeFormat(locale, options).format(date);
 			},
 			duration(remaining) {
 				let days, hours, minutes, seconds, result = '', suffix;
