@@ -25,7 +25,7 @@ as well. In the meantime, you're free to build your very own binary for your OS 
 ### Features
 
 * Create new timesheet entry
-* Create new timesheet entry by and older entry (Continue)
+* Continue timesheet entry (with the same description, project and activity) by clicking on "Continue" button or doubleclicking on the row
 * Modify description, project and activity during recording
 * Delete timesheet entry
 * Browse through existing entries
@@ -39,6 +39,10 @@ as well. In the meantime, you're free to build your very own binary for your OS 
 * Create customers, projects & activities
 * Statistics about working hours & revenues
 * Auto-update
+
+### Credits
+
+ * Thanks to [ionicons.com](http://ionicons.com/) for the awesome iconpack they crafted.
 
 ---
 
