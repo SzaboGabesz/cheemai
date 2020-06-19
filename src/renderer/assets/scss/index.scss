@@ -4,6 +4,7 @@
 	flex: 1 0 auto;
 
 	.time-entries {
+		position: relative;
 		flex: 0 0 calc(100vh - 110px);
 		display: flex;
 		justify-content: center;
