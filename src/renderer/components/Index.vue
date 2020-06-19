@@ -297,7 +297,7 @@
 						description: e.target.value
 					});
 
-					this.loadTimeheets();
+					this.loadTimeheets({ hideLoader: true });
 				}
 			},
 			async loadProjects() {
@@ -403,7 +403,7 @@
 			async checkActiveTimesheet() {
 				const {data} = await this.$root.getClient({ hideLoader: true }).get('timesheets/active');
 
-				if(data.length > 0 && this.timesheetId !== data[0].id) {
+				if(Array.isArray(data) && data.length > 0 && this.timesheetId !== data[0].id) {
 					const timesheet = data[0];
 
 					this.timesheetId = timesheet.id;
