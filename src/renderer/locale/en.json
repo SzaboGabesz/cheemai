@@ -24,5 +24,16 @@
 	"API Key": "API Key",
 	"Looking good, go back": "Looking good, go back",
 	"Invalid credentials": "Invalid credentials",
-	"Please enter the description!": "Please enter the description!"
+	"Please enter the description!": "Please enter the description!",
+	"An error occured during the request! (:url)": "An error occured during the request! (:url)",
+	"Failed to delete the timesheet!": "Failed to delete the timesheet!",
+	"Failed to modify the active timesheet!": "Failed to modify the active timesheet!",
+	"Failed to load the projects": "Failed to load the projects",
+	"Failed to load the activities!": "Failed to load the activities!",
+	"Failed to load customers!": "Failed to load customers!",
+	"Failed to load the details of the customer!": "Failed to load details of the customer!",
+	"Failed to load the timesheets!": "Failed to load the timesheets!",
+	"Failed to start recording!": "Failed to start recording!",
+	"Failed to stop the active timesheet!": "Failed to stop the active timesheet!",
+	"Failed to fetch the active timesheet!": "Failed to fetch the active timesheet!"
 }

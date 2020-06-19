@@ -63,7 +63,8 @@ new Vue({
 		 * @return {AxiosInstance}
 		 */
 		getClient(options = {}) {
-			let client = axios.create({
+			let url, method,
+				client = axios.create({
 					baseURL: `${store.state.host}/api`,
 					timeout: 60000
 				});
@@ -83,6 +84,9 @@ new Vue({
 					this.$store.commit('setLoading', true);
 				}
 
+				url = config.url;
+				method = config.method.toUpperCase();
+
 				return config;
 			});
 
@@ -91,10 +95,42 @@ new Vue({
 
 				return response;
 			}, () => {
+				this.$notify({
+					type: 'error',
+					text: this.getErrorMessage(url, method),
+					timeout: 2000
+				});
+
 				this.$store.commit('setLoading', false);
 			});
 
 			return client;
+		},
+		getErrorMessage(requestUrl, requestMethod) {
+			const errorMessages = {
+				'DELETE ^timesheets/\\d+$'      : this.$trans('Failed to delete the timesheet!'),
+				'PATCH  ^timesheets/\\d+/stop$' : this.$trans('Failed to stop the active timesheet!'),
+				'PATCH  ^timesheets/\\d+$'      : this.$trans('Failed to modify the active timesheet!'),
+				'GET    ^timesheets/active$'    : this.$trans('Failed to fetch the active timesheet!'),
+				'GET    ^timesheets$'           : this.$trans('Failed to load the timesheets!'),
+				'POST   ^timesheets$'           : this.$trans('Failed to start recording!'),
+				'GET    ^projects$'             : this.$trans('Failed to load the projects!'),
+				'GET    ^activities$'           : this.$trans('Failed to load the activities!'),
+				'GET    ^customers/\\d+$'       : this.$trans('Failed to load the details of the customer!'),
+				'GET    ^customers$'            : this.$trans('Failed to load customers!')
+			};
+
+			for(let key in errorMessages) {
+				const parts = /^([A-Z]+) +(.*)$/.exec(key);
+				const method = parts[1].toUpperCase();
+				const regexp = new RegExp(parts[2]);
+
+				if(method === requestMethod && regexp.test(requestUrl)) {
+					return errorMessages[key].replace(':url', requestUrl);
+				}
+			}
+
+			return this.$trans('An error occured during the request! (:url)').replace(':url', requestUrl);
 		}
 	},
 	router,

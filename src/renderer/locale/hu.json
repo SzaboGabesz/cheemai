@@ -24,5 +24,16 @@
 	"API Key": "API Kulcs",
 	"Looking good, go back": "Jónak tűnik, vissza",
 	"Invalid credentials": "Helytelen adatok",
-	"Please enter the description!": "Kérlek add meg a leírást!"
+	"Please enter the description!": "Kérlek add meg a leírást!",
+	"An error occured during the request! (:url)": "Hiba történt a kérés során! (:url)",
+	"Failed to delete the timesheet!": "Nem sikerült törölni a bejegyzést!",
+	"Failed to modify the active timesheet!": "Nem sikerült módosítani az aktív bejegyzést!",
+	"Failed to load the projects": "Nem sikerült betölteni a projekteket!",
+	"Failed to load the activities!": "Nem sikerült betölteni a tevékenységeket!",
+	"Failed to load customers!": "Nem sikerült betölteni az ügyfeleket!",
+	"Failed to load the details of the customer!": "Nem sikerült betölteni az ügyféladatokat!",
+	"Failed to load the timesheets!": "Nem sikerült betölteni a rögzített bejegyzéseket!",
+	"Failed to start recording!": "Nem sikerült elindítani a rögzítést",
+	"Failed to stop the active timesheet!": "Nem sikerült megállítani a rögzítést!",
+	"Failed to fetch the active timesheet!": "Nem sikerült lekérdezni az aktív rögzítést!"
 }
