@@ -1,62 +1,54 @@
 <template>
 	<div id="index-wrapper">
 		<div class="time-entries" ref="timeEntries">
-			<table>
-				<thead>
-					<tr>
-						<th>{{ $trans('Project') }}</th>
-						<th>{{ $trans('Customer') }}</th>
-						<th>{{ $trans('Activity') }}</th>
-						<th>{{ $trans('Description') }}</th>
-						<th>{{ $trans('Begin') }}</th>
-						<th>{{ $trans('End') }}</th>
-						<th>{{ $trans('Duration') }}</th>
-						<th>{{ $trans('Rate') }}</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="timesheet in timesheets" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet($event, timesheet)" :class="{'same-project': projectId === timesheet.project}">
-						<td class="project">{{ getProjectNameById(timesheet.project) }}</td>
-						<td class="customer">{{ getCustomerNameByProjectId(timesheet.project) }}</td>
-						<td class="activity">{{ getActivityNameById(timesheet.activity) }}</td>
-						<td class="description">{{ timesheet.description }}</td>
-						<td class="begin">{{ timesheet.begin|date(language) }}</td>
-						<td class="end">{{ timesheet.end|date(language) }}</td>
-						<td class="duration">{{ timesheet.duration|duration }}</td>
-						<td class="rate">{{ getRateWithCurrency(timesheet) }}</td>
-						<td class="actions">
-							<button href="#" @click="continueTimesheet(timesheet)" class="btn-with-icon continue">
-								<img src="~@/assets/icons/continue-timesheet.svg" :title="$trans('Continue')">
-							</button>
-							<div class="separator"></div>
-							<button href="#" @click="deleteTimesheet(timesheet.id)" class="btn-with-icon delete">
-								<img src="~@/assets/icons/delete-timesheet.svg" :title="$trans('Delete')">
-							</button>
-						</td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="8">
-							<button href="#" @click="loadTimeheets" class="btn-with-icon">
-								<img src="~@/assets/icons/reload-timesheets.svg">
-								{{ $trans('Reload') }}
-							</button>
-							<div class="separator"></div>
-							<button href="#" @click="list.page--" :disabled="list.page === 1" class="btn-with-icon">
-								<img src="~@/assets/icons/previous-page.svg">
-								{{ $trans('Previous page') }}
-							</button>
-							<div class="separator"></div>
-							<button href="#" @click="list.page++" :disabled="timesheets.length < list.size" class="btn-with-icon">
-								<img src="~@/assets/icons/next-page.svg">
-								{{ $trans('Next page') }}
-							</button>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
+			<div class="table">
+				<div class="table-header">{{ $trans('Project') }}</div>
+				<div class="table-header">{{ $trans('Customer') }}</div>
+				<div class="table-header">{{ $trans('Activity') }}</div>
+				<div class="table-header">{{ $trans('Description') }}</div>
+				<div class="table-header">{{ $trans('Begin') }}</div>
+				<div class="table-header">{{ $trans('End') }}</div>
+				<div class="table-header">{{ $trans('Duration') }}</div>
+				<div class="table-header">{{ $trans('Rate') }}</div>
+				<div class="table-header"></div>
+
+				<template v-for="timesheet in timesheets">
+					<div class="table-cell project" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ getProjectNameById(timesheet.project) }}</div>
+					<div class="table-cell customer" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ getCustomerNameByProjectId(timesheet.project) }}</div>
+					<div class="table-cell activity" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ getActivityNameById(timesheet.activity) }}</div>
+					<div class="table-cell description" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.description }}</div>
+					<div class="table-cell begin" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.begin|date(language) }}</div>
+					<div class="table-cell end" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.end|date(language) }}</div>
+					<div class="table-cell duration" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.duration|duration }}</div>
+					<div class="table-cell rate" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ getRateWithCurrency(timesheet) }}</div>
+					<div class="table-cell actions">
+						<button href="#" @click="continueTimesheet(timesheet)" class="btn-with-icon continue">
+							<img src="~@/assets/icons/continue-timesheet.svg" :title="$trans('Continue')">
+						</button>
+						<div class="separator"></div>
+						<button href="#" @click="deleteTimesheet(timesheet.id)" class="btn-with-icon delete">
+							<img src="~@/assets/icons/delete-timesheet.svg" :title="$trans('Delete')">
+						</button>
+					</div>
+				</template>
+
+				<div class="table-footer">
+					<button href="#" @click="loadTimeheets" class="btn-with-icon">
+						<img src="~@/assets/icons/reload-timesheets.svg">
+						{{ $trans('Reload') }}
+					</button>
+					<div class="separator"></div>
+					<button href="#" @click="list.page--" :disabled="list.page === 1" class="btn-with-icon">
+						<img src="~@/assets/icons/previous-page.svg">
+						{{ $trans('Previous page') }}
+					</button>
+					<div class="separator"></div>
+					<button href="#" @click="list.page++" :disabled="timesheets.length < list.size" class="btn-with-icon">
+						<img src="~@/assets/icons/next-page.svg">
+						{{ $trans('Next page') }}
+					</button>
+				</div>
+			</div>
 		</div>
 		<div class="recording">
 			<img src="~@/assets/icons/settings.svg" class="settings" @click="$router.push('/settings')">
@@ -278,12 +270,7 @@
 				await this.$root.getClient().delete(`timesheets/${id}`);
 				this.loadTimeheets();
 			},
-			editTimesheet(e, timesheet) {
-				if(e.target.classList.contains('delete')) {
-					e.preventDefault();
-					return;
-				}
-
+			editTimesheet(timesheet) {
 				// FIXME
 			},
 			async modifyDescription(e) {
