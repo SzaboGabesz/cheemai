@@ -38,5 +38,6 @@
 	"Failed to stop the active timesheet!": "Nem sikerült megállítani a rögzítést!",
 	"Failed to fetch the active timesheet!": "Nem sikerült lekérdezni az aktív rögzítést!",
 	"Task statistics": "Feladat statisztika",
-	"You've worked :duration on \":task\" for :rate.": "A \":task\" feladaton összesen :durationet dolgoztál :rate munkadíjért."
+	"You've worked :duration on \":task\" for :rate.": "A \":task\" feladaton összesen :durationet dolgoztál :rate munkadíjért.",
+	"Background color": "Háttérszín"
 }

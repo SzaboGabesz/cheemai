@@ -1,6 +1,6 @@
 {
   "name": "cheemai",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "Gabor Szabo <szabo.gabor@szabogabor.net>",
   "description": "Native client for the Kimai platform",
   "license": "MIT",

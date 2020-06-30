@@ -19,6 +19,7 @@ export default new Vuex.Store({
 		activities: [],
 		customers: [],
 		notifications: [],
+		backgroundColor: [],
 		languages: {
 			'en': 'English',
 			'hu': 'Magyar'
@@ -70,6 +71,9 @@ export default new Vuex.Store({
 				1
 			);
 		},
+		setBackgroundColor(state, backgroundColor) {
+			state.backgroundColor = backgroundColor;
+		},
 		initialize(state) {
 			if(localStorage.getItem('data')) {
 				this.replaceState(
@@ -108,7 +112,10 @@ export default new Vuex.Store({
 		},
 		removeNotification({commit}, notification) {
 			commit('removeNotification', notification);
-		}
+		},
+		setBackgroundColor({commit}, backgroundColor) {
+			commit('setBackgroundColor', backgroundColor);
+		},
 	},
 	strict: process.env.NODE_ENV !== 'production'
 })

@@ -9,7 +9,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		overflow: auto;
+		overflow: hidden;
 		padding: 25px;
 
 		.table {
@@ -42,10 +42,6 @@
 
 				&.same-project td {
 					background-color: rgba(0, 0, 0, 0.1);
-				}
-
-				&.actions {
-					justify-content: center;
 				}
 
 				.btn-with-icon {

@@ -7,6 +7,13 @@
 					<option v-for="(name, code) in languages" :value="code">{{ name }}</option>
 				</select>
 			</div>
+			<div class="field">
+				<label for="background-color-1">{{ $trans('Background color') }}:</label>
+				<div class="background-color">
+					<input type="color" id="background-color-1" :value="backgroundColor[0]" @change="setBackgroundColor" ref="backgroundColor1">
+					<input type="color" id="background-color-2" :value="backgroundColor[1]" @change="setBackgroundColor" ref="backgroundColor2">
+				</div>
+			</div>
 			<button class="action" @click="$router.push('/')">{{ $trans('Back') }}</button>
 		</div>
 	</div>
@@ -25,12 +32,19 @@
 		computed: {
 			...mapState([
 				'languages',
-				'language'
+				'language',
+				'backgroundColor'
 			])
 		},
 		methods: {
 			setLanguage(e) {
 				this.$store.dispatch('setLanguage', e.target.value);
+			},
+			setBackgroundColor() {
+				this.$store.dispatch('setBackgroundColor', [
+					this.$refs.backgroundColor1.value,
+					this.$refs.backgroundColor2.value
+				]);
 			}
 		}
 	}
@@ -73,6 +87,19 @@
 	#settings-wrapper .field select:focus {
 		background: #333a43;
 		outline: 0;
+	}
+
+	#settings-wrapper .background-color {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	#settings-wrapper .background-color input {
+		border: 0;
+		width: 50%;
+		height: 35px;
+		background: rgba(0, 0, 0, 0.5);
+		padding: 3px 10px;
 	}
 
 	#settings-wrapper .action {

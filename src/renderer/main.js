@@ -49,7 +49,8 @@ store.subscribe((mutation, state) => {
 		'host',
 		'username',
 		'apiKey',
-		'language'
+		'language',
+		'backgroundColor'
 	];
 
 	// Save only the whitelisted items from the store

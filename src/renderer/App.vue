@@ -50,12 +50,18 @@
 		components: {
 			Notification
 		},
+		watch: {
+			backgroundColor(colors) {
+				this.changeBackgroundColor(colors);
+			}
+		},
 		computed: {
 			...mapState([
 				'language',
 				'loading',
 				'languages',
-				'notifications'
+				'notifications',
+				'backgroundColor'
 			])
 		},
 		methods: {
@@ -70,7 +76,13 @@
 			},
 			close() {
 				this.getWindow().close();
+			},
+			changeBackgroundColor(colors) {
+				this.$el.parentNode.style.background = `radial-gradient(circle at center, ${colors[0]} 0%, ${colors[1]} 90%)`;
 			}
+		},
+		mounted() {
+			this.changeBackgroundColor(this.backgroundColor);
 		},
 		created() {
 			if(this.language === '') {
@@ -85,6 +97,10 @@
 						this.$store.dispatch('setLanguage', supportedLanguages[0]);
 					}
 				});
+			}
+
+			if(this.backgroundColor.length === 0) {
+				this.$store.dispatch('setBackgroundColor', ['#606E86', '#3B434E']);
 			}
 
 			this.$root.getClient().get('/version').then(({data}) => {

@@ -38,5 +38,6 @@
 	"Failed to stop the active timesheet!": "Failed to stop the active timesheet!",
 	"Failed to fetch the active timesheet!": "Failed to fetch the active timesheet!",
 	"Task statistics": "Task statistics",
-	"You've worked :duration on \":task\" for :rate.": "You've worked :duration on \":task\" for :rate."
+	"You've worked :duration on \":task\" for :rate.": "You've worked :duration on \":task\" for :rate.",
+	"Background color": "Background color"
 }

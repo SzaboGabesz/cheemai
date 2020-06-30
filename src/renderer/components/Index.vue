@@ -29,10 +29,12 @@
 						<button href="#" @click="deleteTimesheet(timesheet.id)" class="btn-with-icon delete">
 							<img src="~@/assets/icons/delete-timesheet.svg" :title="$trans('Delete')">
 						</button>
-						<div class="separator"></div>
-						<button href="#" @click="getTaskStatistics(timesheet)" class="btn-with-icon task-statistics">
-							<img src="~@/assets/icons/task-statistics.svg" :title="$trans('Task statistics')">
-						</button>
+						<template v-if="timesheet.description">
+							<div class="separator"></div>
+							<button href="#" @click="getTaskStatistics(timesheet)" class="btn-with-icon task-statistics">
+								<img src="~@/assets/icons/task-statistics.svg" :title="$trans('Task statistics')">
+							</button>
+						</template>
 					</div>
 				</template>
 
@@ -116,8 +118,7 @@
 					month: 'long',
 					day: 'numeric',
 					hour: 'numeric',
-					minute: 'numeric',
-					second: 'numeric',
+					minute: 'numeric'
 				};
 
 				return new Intl.DateTimeFormat(locale, options).format(date);
