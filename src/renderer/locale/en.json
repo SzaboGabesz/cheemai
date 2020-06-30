@@ -15,8 +15,9 @@
 	"What are you working on?": "What are you working on?",
 	"No projects": "No projects",
 	"No activities": "No activities",
-	"day": "day",
-	"days": "days",
+	"day(s)": "day(s)",
+	"hour(s)": "hour(s)",
+	"minute(s)": "minute(s)",
 	"Language": "Language",
 	"Back": "Back",
 	"Host": "Host",
@@ -35,5 +36,7 @@
 	"Failed to load the timesheets!": "Failed to load the timesheets!",
 	"Failed to start recording!": "Failed to start recording!",
 	"Failed to stop the active timesheet!": "Failed to stop the active timesheet!",
-	"Failed to fetch the active timesheet!": "Failed to fetch the active timesheet!"
+	"Failed to fetch the active timesheet!": "Failed to fetch the active timesheet!",
+	"Task statistics": "Task statistics",
+	"You've worked :duration on \":task\" for :rate.": "You've worked :duration on \":task\" for :rate."
 }

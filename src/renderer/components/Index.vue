@@ -19,8 +19,8 @@
 					<div class="table-cell description" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.description }}</div>
 					<div class="table-cell begin" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.begin|date(language) }}</div>
 					<div class="table-cell end" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.end|date(language) }}</div>
-					<div class="table-cell duration" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ timesheet.duration|duration }}</div>
-					<div class="table-cell rate" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ getRateWithCurrency(timesheet) }}</div>
+					<div class="table-cell duration" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ getDuration(timesheet.duration) }}</div>
+					<div class="table-cell rate" :class="{'same-project': projectId === timesheet.project}" @dblclick="continueTimesheet(timesheet)" @click="editTimesheet(timesheet)">{{ getFormattedRate(timesheet.project, timesheet.rate) }}</div>
 					<div class="table-cell actions">
 						<button href="#" @click="continueTimesheet(timesheet)" class="btn-with-icon continue">
 							<img src="~@/assets/icons/continue-timesheet.svg" :title="$trans('Continue')">
@@ -28,6 +28,10 @@
 						<div class="separator"></div>
 						<button href="#" @click="deleteTimesheet(timesheet.id)" class="btn-with-icon delete">
 							<img src="~@/assets/icons/delete-timesheet.svg" :title="$trans('Delete')">
+						</button>
+						<div class="separator"></div>
+						<button href="#" @click="getTaskStatistics(timesheet)" class="btn-with-icon task-statistics">
+							<img src="~@/assets/icons/task-statistics.svg" :title="$trans('Task statistics')">
 						</button>
 					</div>
 				</template>
@@ -63,7 +67,7 @@
 			</select>
 			<img src="~@/assets/icons/start-timesheet.svg" class="start" :class="{'disabled': !startEnabled}" @click="start" v-if="isStopped">
 			<img src="~@/assets/icons/stop-timesheet.svg" class="stop" @click="stop" v-if="isStarted">
-			<span class="counter">{{ elapsed|duration }}</span>
+			<span class="counter">{{ getDuration(elapsed) }}</span>
 		</div>
 	</div>
 </template>
@@ -117,58 +121,6 @@
 				};
 
 				return new Intl.DateTimeFormat(locale, options).format(date);
-			},
-			duration(remaining) {
-				let days, hours, minutes, seconds, result = '', suffix;
-
-				days = Math.floor(remaining / 86400);
-
-				if(days > 0) {
-					suffix = days > 1 ? this.$trans('days') : this.$trans('day');
-					result += `${days} ${suffix} `;
-					remaining = remaining % 86400;
-				}
-
-				hours = Math.floor(remaining / 3600);
-
-				if(hours > 0) {
-					remaining = remaining % 3600;
-
-					if(hours < 10) {
-						hours = '0' + hours;
-					}
-
-					result += `${hours}:`;
-				}
-
-				minutes = Math.floor(remaining / 60);
-
-				if(minutes > 0) {
-					remaining = remaining % 60;
-
-					if(minutes < 10) {
-						minutes = '0' + minutes;
-					}
-
-					result += `${minutes}:`;
-				}
-				else {
-					result += `00:`;
-				}
-
-				seconds = remaining;
-
-				if(seconds === 0) {
-					result += `00`;
-				}
-				else if(seconds < 10) {
-					result += `0${seconds}`;
-				}
-				else {
-					result += `${seconds}`;
-				}
-
-				return result;
 			}
 		},
 		computed: {
@@ -192,9 +144,61 @@
 			}
 		},
 		methods: {
-			getRateWithCurrency(timesheet) {
+			getTimeUnitsFromSeconds(seconds) {
+				let result = {
+						days: 0,
+						hours: 0,
+						minutes: 0,
+						seconds: 0
+					};
+
+				result.days = Math.floor(seconds / 86400);
+				seconds = seconds % 86400;
+				result.hours = Math.floor(seconds / 3600);
+				seconds = seconds % 3600;
+				result.minutes = Math.floor(seconds / 60);
+				seconds = seconds % 60;
+				result.seconds = seconds;
+
+				return result;
+			},
+			getNiceDuration(seconds) {
+				const result = [];
+				const timeUnits = this.getTimeUnitsFromSeconds(seconds);
+
+				if(timeUnits.days > 0) {
+					result.push(timeUnits.days, this.$trans('day(s)'));
+				}
+
+				if(timeUnits.hours > 0) {
+					result.push(timeUnits.hours, this.$trans('hour(s)'));
+				}
+
+				if(timeUnits.minutes > 0) {
+					result.push(timeUnits.minutes, this.$trans('minute(s)'));
+				}
+
+				return result.join(' ');
+			},
+			getDuration(seconds) {
+				let result = '';
+				const timeUnits = this.getTimeUnitsFromSeconds(seconds);
+
+				if(timeUnits.days > 0) {
+					result += timeUnits.days + ' ' + this.$trans('day(s)') + ' ';
+				}
+
+				if(timeUnits.hours > 0) {
+					result += timeUnits.hours.pad(2, '0') + ':';
+				}
+
+				result += timeUnits.minutes.pad(2, '0') + ':';
+				result += timeUnits.seconds.pad(2, '0');
+
+				return result;
+			},
+			getFormattedRate(projectId, rate) {
 				let customerId, currency;
-				const projectId = timesheet.project;
 
 				this.projects.forEach((project) => {
 					if(project.id === projectId) {
@@ -222,7 +226,7 @@
 					}
 				);
 
-				return formatter.format(timesheet.rate);
+				return formatter.format(rate);
 			},
 			getProjectNameById(projectId) {
 				let projectName = '';
@@ -345,6 +349,39 @@
 				}
 
 				await this.$store.dispatch('setCustomers', customers);
+			},
+			async getTaskStatistics(timesheet) {
+				const description = timesheet.description;
+				const {data: timesheets} = await this.$root.getClient().get('timesheets', {
+					params: {
+						activities: timesheet.activity,
+						project: timesheet.project,
+						term: timesheet.description,
+						size: 1000000
+					}
+				});
+
+				let totalDuration = 0, totalRate = 0;
+
+				timesheets.forEach((timesheet) => {
+					if(timesheet.description === description) {
+						totalDuration += timesheet.duration;
+						totalRate += timesheet.rate;
+					}
+				});
+
+				totalDuration = this.getNiceDuration(totalDuration);
+				totalRate = this.getFormattedRate(timesheet.project, totalRate);
+
+				this.$notify({
+					type: 'success',
+					text: this.$trans('You\'ve worked :duration on ":task" for :rate.', {
+						'duration': totalDuration,
+						'rate': totalRate,
+						'task': description
+					}),
+					timeout: 10000
+				});
 			},
 			async loadTimeheets() {
 				const {data: timesheets} = await this.$root.getClient().get('timesheets', {

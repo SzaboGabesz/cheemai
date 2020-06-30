@@ -20,7 +20,9 @@ npm run build
 ### Platforms
 
 At the moment the app has been built and tested on windows. In the near future I'll build and test the OSX distributable 
-as well. In the meantime, you're free to build your very own binary for your OS of choice. 
+as well. In the meantime, you're free to build your very own binary for your OS of choice.
+
+* [Windows Installer](https://www.szabogabor.net/download/Cheemai-latest-setup.exe)
 
 ### Features
 

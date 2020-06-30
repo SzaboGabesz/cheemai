@@ -10,17 +10,37 @@ if (!process.env.IS_WEB) {
 
 Vue.http = Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
-Vue.trans = Vue.prototype.$trans = (str) => {
+Vue.trans = Vue.prototype.$trans = (str, vars = {}) => {
+	let translation, keys = Object.keys(vars);
+
 	if(str in translations[store.state.language]) {
-		return translations[store.state.language][str];
+		translation = translations[store.state.language][str];
 	}
 	else {
-		return str;
+		translation = str;
 	}
+
+
+
+	keys.forEach((key) => {
+		translation = translation.replace(new RegExp(':' + key, 'g'), vars[key]);
+	});
+
+	return translation;
 };
 
 Vue.notify = Vue.prototype.$notify = (options) => {
 	store.dispatch('addNotification', options);
+};
+
+Number.prototype.pad = function(length, str = ' ') {
+	let s = String(this);
+
+	while (s.length < (length || 2)) {
+		s = str + s;
+	}
+
+	return s;
 };
 
 store.subscribe((mutation, state) => {

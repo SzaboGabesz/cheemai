@@ -15,8 +15,9 @@
 	"What are you working on?": "Min dolgozol épp?",
 	"No projects": "Nincsenek projektek",
 	"No activities": "Nincsenek tevékenységek",
-	"day": "nap",
-	"days": "nap",
+	"day(s)": "nap",
+	"hour(s)": "óra",
+	"minute(s)": "perc",
 	"Language": "Nyelv",
 	"Back": "Vissza",
 	"Host": "Hoszt",
@@ -35,5 +36,7 @@
 	"Failed to load the timesheets!": "Nem sikerült betölteni a rögzített bejegyzéseket!",
 	"Failed to start recording!": "Nem sikerült elindítani a rögzítést",
 	"Failed to stop the active timesheet!": "Nem sikerült megállítani a rögzítést!",
-	"Failed to fetch the active timesheet!": "Nem sikerült lekérdezni az aktív rögzítést!"
+	"Failed to fetch the active timesheet!": "Nem sikerült lekérdezni az aktív rögzítést!",
+	"Task statistics": "Feladat statisztika",
+	"You've worked :duration on \":task\" for :rate.": "A \":task\" feladaton összesen :durationet dolgoztál :rate munkadíjért."
 }
